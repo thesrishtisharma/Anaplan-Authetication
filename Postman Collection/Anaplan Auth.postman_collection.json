@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "5e395feb-3e00-43c9-94bd-e3901fcf0827",
+		"name": "Anaplan Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25502468"
+	},
+	"item": [
+		{
+			"name": "Basic Auth",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{email}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://auth.anaplan.com/token/authenticate",
+					"protocol": "https",
+					"host": [
+						"auth",
+						"anaplan",
+						"com"
+					],
+					"path": [
+						"token",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OAuth 2.0: Step 1 - Verification",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"client_id\": \"\",\r\n    \"scope\": \"openid profile email offline_access\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://us1a.app.anaplan.com/oauth/device/code",
+					"protocol": "https",
+					"host": [
+						"us1a",
+						"app",
+						"anaplan",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"device",
+						"code"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OAuth 2.0:  Step 2 - Obtain Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"grant_type\": \"urn:ietf:params:oauth:grant-type:device_code\",\r\n    \"device_code\": \"\",\r\n    \"client_id\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://us1a.app.anaplan.com/oauth/token",
+					"protocol": "https",
+					"host": [
+						"us1a",
+						"app",
+						"anaplan",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OAuth 2.0: Step 3 - Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"client_id\": \"\",\r\n    \"grant_type\": \"refresh_token\",\r\n    \"refresh_token\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://us1a.app.anaplan.com/oauth/token",
+					"protocol": "https",
+					"host": [
+						"us1a",
+						"app",
+						"anaplan",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
